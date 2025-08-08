@@ -50,7 +50,7 @@ h1 {
   margin: 0;
   font-weight: 800;
   position: relative;
-  top: -3px;
+  top: -2px;
 }
 
 h2 {
@@ -168,6 +168,7 @@ input[type="number"] {
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   outline: none;
+  font-weight: 600;
 }
 
 input:focus {
@@ -266,6 +267,6 @@ input:focus {
     width: 100%;
   }
   h1 {
-    font-size: 30px;
+    font-size: 32px;
   }
 }
