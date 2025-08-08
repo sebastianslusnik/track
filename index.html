@@ -1,0 +1,28 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <title>Weight Tracker</title> <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin> <link rel="stylesheet" href="styles.css"> </head> <body> <div class="app"> <header class="app-header"> <h1>Weight Tracker</h1> </header> <main class="layout"> <section class="panel"> <div class="panel-header"> <h2>Progress</h2> </div> <div class="progress-stats"> <div class="stat"> <div class="label">Start</div> <div class="value"><span id="startWeightLabel">122.5</span> kg</div> </div> <div class="stat"> <div class="label">Current</div> <div class="value"><span id="currentWeightLabel">—</span> kg</div> </div> <div class="stat"> <div class="label">Goal</div> <div class="value"><span id="goalWeightLabel">99.5</span> kg</div> </div> </div> <div class="progress-bar"> <div id="progressFill" class="progress-fill"></div> </div> <div class="progress-footer"> <div class="progress-label" id="progressPercent">0%</div> <div class="delta"> <span class="delta-item"><strong id="lostLabel">0</strong> kg lost</span> <span class="delta-item"><strong id="remainingLabel">0</strong> kg to go</span> </div> </div> </section>
+<section class="panel">
+  <div class="panel-header">
+    <h2>Log Weight</h2>
+  </div>
+  <form id="logForm" class="log-form">
+    <div class="field">
+      <label for="dateInput">Date</label>
+      <input id="dateInput" type="date" required>
+    </div>
+    <div class="field">
+      <label for="weightInput">Weight (kg)</label>
+      <input id="weightInput" type="number" inputmode="decimal" step="0.1" min="30" max="300" placeholder="e.g., 118.4" required>
+    </div>
+    <button type="submit" id="saveBtn" class="btn">Save</button>
+  </form>
+  <div class="status" id="status"></div>
+</section>
+
+<section class="panel chart-panel">
+  <div class="panel-header">
+    <h2>Trend</h2>
+  </div>
+  <div class="chart-wrap">
+    <canvas id="weightChart"></canvas>
+  </div>
+</section>
+</main> <section class="panel table-panel"> <div class="panel-header"> <h2>History</h2> </div> <div class="table-wrap"> <table class="table"> <thead> <tr> <th>Date</th> <th>Weight (kg)</th> </tr> </thead> <tbody id="tableBody"></tbody> </table> </div> </section> <footer class="app-footer"> <div class="muted">All data is stored in your jsonbin.io bin.</div> </footer> </div> <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script> <script src="script.js"></script> </body> </html>
