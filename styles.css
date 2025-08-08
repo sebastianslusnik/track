@@ -36,14 +36,21 @@ body {
 .app-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 22px 0 10px;
+  justify-content: flex-start;
+  padding: 25px 0 20px;
+}
+
+img {
+  width: 50px;
+  margin-right: 10px;
 }
 
 h1 {
-  font-size: 26px;
+  font-size: 30px;
   margin: 0;
-  font-weight: 700;
+  font-weight: 800;
+  position: relative;
+  top: -3px;
 }
 
 h2 {
@@ -226,7 +233,7 @@ input:focus {
 }
 
 .app-footer {
-  padding: 16px 0 28px;
+  padding: 22px 0 30px;
   text-align: center;
   color: var(--muted);
   font-size: 12px;
