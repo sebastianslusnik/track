@@ -133,75 +133,76 @@ return '<tr><td>' + d + '</td><td>' + w + '</td></tr>';
 }
 
 function updateChart() {
-const ctx = document.getElementById('weightChart').getContext('2d');
-const labels = state.entries.map(e => e.date);
-const data = state.entries.map(e => e.weight);
-const minW = Math.min(state.goalWeight, ...data, state.startWeight);
-const maxW = Math.max(state.goalWeight, ...data, state.startWeight);
-const padding = Math.max(0.5, (maxW - minW) * 0.08);
-const yMin = Math.max(0, minW - padding);
-const yMax = maxW + padding;
-if (chart) {
-chart.data.labels = labels;
-chart.data.datasets[0].data = data;
-chart.options.scales.y.suggestedMin = yMin;
-chart.options.scales.y.suggestedMax = yMax;
-chart.update();
-return;
-}
-chart = new Chart(ctx, {
-type: 'line',
-data: {
-labels,
-datasets: [{
-label: 'Weight',
-data,
-borderColor: '#111111',
-backgroundColor: 'rgba(0,0,0,0.06)',
-pointBackgroundColor: '#111111',
-pointRadius: 3,
-borderWidth: 2,
-fill: true,
-tension: 0.25
-}]
-},
-options: {
-responsive: true,
-maintainAspectRatio: false,
-plugins: {
-legend: { display: false },
-tooltip: {
-intersect: false,
-mode: 'index',
-callbacks: {
-label: ctx => ctx.parsed.y.toFixed(1) + ' kg'
-}
-}
-},
-scales: {
-x: {
-grid: { color: '#f0f0f0' },
-ticks: {
-autoSkip: true,
-maxTicksLimit: 8,
+  const ctx = document.getElementById('weightChart').getContext('2d');
+  const labels = state.entries.map(e => e.date);
+  const data = state.entries.map(e => e.weight);
+  const minW = Math.min(state.goalWeight, ...data, state.startWeight);
+  const maxW = Math.max(state.goalWeight, ...data, state.startWeight);
+  const padding = Math.max(0.5, (maxW - minW) * 0.08);
+  const yMin = Math.max(0, minW - padding);
+  const yMax = maxW + padding;
+
+  // ✅ Destroy existing chart if it exists
+  if (chart) {
+    chart.destroy();
+  }
+
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Weight',
+        data,
+        borderColor: '#111111',
+        backgroundColor: 'rgba(0,0,0,0.06)',
+        pointBackgroundColor: '#111111',
+        pointRadius: 3,
+        borderWidth: 2,
+        fill: true,
+        tension: 0.25
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          intersect: false,
+          mode: 'index',
+          callbacks: {
+            label: ctx => ctx.parsed.y.toFixed(1) + ' kg'
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: '#f0f0f0' },
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 8,
+
 callback: v => {
-const s = chart.data.labels[v];
-if (!s) return '';
-const d = parseISO(s);
-return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  const s = labels[v]; // ✅ Use local variable instead of chart.data.labels
+  if (!s) return '';
+  const d = parseISO(s);
+  return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 }
+
+          }
+        },
+        y: {
+          grid: { color: '#f3f3f3' },
+          ticks: { callback: v => v + '' },
+          suggestedMin: yMin,
+          suggestedMax: yMax
+        }
+      }
+    }
+  });
 }
-},
-y: {
-grid: { color: '#f3f3f3' },
-ticks: { callback: v => v + '' },
-suggestedMin: yMin,
-suggestedMax: yMax
-}
-}
-}
-});
-}
+
 
 function renderAll() {
 updateProgressUI();
