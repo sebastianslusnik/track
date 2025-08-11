@@ -176,9 +176,9 @@ function updateChart() {
             datasets: [{
                 label: 'Weight',
                 data,
-                borderColor: '#111111',
-                backgroundColor: 'rgba(0,0,0,0.06)',
-                pointBackgroundColor: '#111111',
+                borderColor: '#222222',
+                backgroundColor: 'rgba(0,0,0,0.1)',
+                pointBackgroundColor: '#222222',
                 pointRadius: 3,
                 borderWidth: 2,
                 fill: true,
@@ -194,6 +194,10 @@ function updateChart() {
                 },
                 tooltip: {
                     intersect: false,
+                    border: 'none',
+                    backgroundColor: '#333333',
+                        titleColor: "#f1f1f1",
+                        bodyColor: "#f1f1f1",
                     mode: 'index',
                     callbacks: {
                         label: ctx => ctx.parsed.y.toFixed(1) + ' kg'
@@ -203,7 +207,7 @@ function updateChart() {
             scales: {
                 x: {
                     grid: {
-                        color: '#f0f0f0'
+                        color: '#eaeaea'
                     },
                     ticks: {
                         autoSkip: true,
@@ -223,7 +227,7 @@ function updateChart() {
                 },
                 y: {
                     grid: {
-                        color: '#f3f3f3'
+                        color: '#eaeaea'
                     },
                     ticks: {
                         callback: v => v + ''
