@@ -219,7 +219,7 @@ input:focus {
 .table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 420px;
+  min-width: 320px;
 }
 
 .table th,
@@ -261,6 +261,9 @@ input:focus {
 }
 
 @media (max-width: 520px) {
+  .mobile {
+    display: none;
+  }
   .log-form {
     grid-template-columns: 1fr;
   }
