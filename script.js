@@ -163,13 +163,13 @@ async function clearDataAndReload() {
         renderAll();
 
         // rövid státusz, majd oldalfrissítés (ha tényleg teljes reload kell)
-        setStatus('Törölve. Oldal frissítése…', true);
+        setStatus('Data successfully cleared...', true);
 
         // Ha csak UI-t akarsz frissíteni, a renderAll() elég; ha teljes reload kell:
         // location.reload();
     } catch (err) {
         console.error(err);
-        setStatus('Nem sikerült törölni a jsonbin-ből. Ellenőrizd az internetkapcsolatot és az API kulcsot.');
+        setStatus('Unable to proceed...');
     } finally {
         clearBtn.disabled = false;
     }
