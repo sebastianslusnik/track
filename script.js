@@ -126,7 +126,7 @@ async function saveData() {
 }
 async function clearDataAndReload() {
     // opcionális: megerősítés a felhasználónak
-    if (!confirm('Biztosan törlöd az összes mérést? Ez visszavonhatatlanul eltávolítja az összes bejegyzést a jsonbin-ből.')) {
+    if (!confirm('Are you sure you want to clear all data?')) {
         return;
     }
 
