@@ -245,6 +245,28 @@ input:focus {
   color: var(--muted);
 }
 
+/* Icon button style */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #222222;
+  padding: 4px;
+  border-radius: 6px;
+}
+.icon-btn:hover {
+  background: rgba(0,0,0,0.04);
+}
+.icon-btn:active {
+  transform: translateY(1px);
+}
+
+
 @media (min-width: 600px) {
   .chart-panel .chart-wrap {
     height: 340px;
