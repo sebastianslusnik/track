@@ -3,6 +3,7 @@ const API_KEY = '$2a$10$9sO/ja29sMebpWNvsWmp5.dJ6lv7CPeLBMRFaA/cAEwz42ii6qlCS';
 const API_URL = 'https://api.jsonbin.io/v3/b/6895ea2cae596e708fc51e96';
 const START_WEIGHT = 122.5;
 const GOAL_WEIGHT = 99.5;
+const clearBtn = document.getElementById('clearBtn');
 
 let state = {
     startWeight: START_WEIGHT,
@@ -122,6 +123,61 @@ async function saveData() {
         body
     });
     if (!res.ok) throw new Error('Failed to save');
+}
+async function clearDataAndReload() {
+    // opcionális: megerősítés a felhasználónak
+    if (!confirm('Biztosan törlöd az összes mérést? Ez visszavonhatatlanul eltávolítja az összes bejegyzést a jsonbin-ből.')) {
+        return;
+    }
+
+    // disable gomb, visszajelzés
+    clearBtn.disabled = true;
+    setStatus('Clearing…');
+
+    try {
+        // Felülírjuk a bin tartalmát üres bejegyzésekkel
+        const body = JSON.stringify({
+            startWeight: START_WEIGHT,
+            goalWeight: GOAL_WEIGHT,
+            entries: []
+        });
+
+        const res = await fetch(API_URL, {
+            method: 'PUT',
+            headers: {
+                'X-Master-Key': API_KEY,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body
+        });
+
+        if (!res.ok) throw new Error('Failed to clear');
+
+        // siker: frissítjük a helyi state-et és újrarenderelünk
+        state = {
+            startWeight: START_WEIGHT,
+            goalWeight: GOAL_WEIGHT,
+            entries: []
+        };
+        renderAll();
+
+        // rövid státusz, majd oldalfrissítés (ha tényleg teljes reload kell)
+        setStatus('Törölve. Oldal frissítése…', true);
+
+        // Ha csak UI-t akarsz frissíteni, a renderAll() elég; ha teljes reload kell:
+        // location.reload();
+    } catch (err) {
+        console.error(err);
+        setStatus('Nem sikerült törölni a jsonbin-ből. Ellenőrizd az internetkapcsolatot és az API kulcsot.');
+    } finally {
+        clearBtn.disabled = false;
+    }
+}
+
+// esemény hozzárendelése
+if (clearBtn) {
+    clearBtn.addEventListener('click', clearDataAndReload);
 }
 
 function currentWeight() {
